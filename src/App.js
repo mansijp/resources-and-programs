@@ -9,7 +9,6 @@ import {
 } from 'react-router-dom';
 // All pages
 import Home from './pages/Home';
-import Contact from './pages/Events';
 import Tools from './pages/Tools';
 import Workshops from './pages/Workshops';
 import Webinars from './pages/Webinars';
@@ -24,6 +23,8 @@ import Buspoints from './pages/Buspoints';
 import Suspoints from './pages/Suspoints';
 import Digpoints from './pages/Digpoints';
 import Signup from './pages/Signup';
+import Admin from './pages/Admin';
+import Added from './pages/Added';
 import {useDocTitle} from './components/CustomHook';
 import ScrollToTop from './components/ScrollToTop';
 
@@ -64,6 +65,8 @@ function App() {
             <Route path="/Suspoints" element={<Suspoints />} /> 
             <Route path="/Digpoints" element={<Digpoints />} /> 
             <Route path="/Signup" element={<Signup />} /> 
+            <Route path="/Admin" element={<Admin />} /> 
+            <Route path="/Added" element={<Added />} /> 
           </Routes>
         </ScrollToTop>
       </Router>
