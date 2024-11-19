@@ -14,7 +14,13 @@ const Admin = () => {
         }, 3000);
     };
     const [message, setMessage] = useState('')
+    const [title, setTitle] = useState('');
     const [errors, setErrors] = useState([])
+
+    const fixedType = "Training Resource";
+    const fixedDescription = "A training resource for clients";
+    const fixedPointsAwarded = 10;
+    const fixedCategories = ["Client", "Training"];
 
     const clearErrors = () => {
         setErrors([])

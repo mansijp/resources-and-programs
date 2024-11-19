@@ -1,0 +1,17 @@
+{
+    "name": "server",
+    "version": "1.0.0",
+    "description": "Backend for my full-stack application",
+    "main": "server.js",
+    "scripts": {
+        "start": "node server.js"
+    },
+    "dependencies": {
+        "cors": "^2.8.5",
+        "express": "^4.17.1",
+        "mongodb": "^6.10.0",
+        "mongoose": "^8.8.2"
+    },
+    "author": "",
+    "license": "ISC"
+}
