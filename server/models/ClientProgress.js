@@ -53,4 +53,4 @@ const ClientProgressSchema = new mongoose.Schema({
   }
 });
 
-module.exports = mongoose.model('ClientProgress', ClientProgressSchema);
+module.exports = mongoose.model('ClientProgress', ClientProgressSchema, 'clientprogresses');

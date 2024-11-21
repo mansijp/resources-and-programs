@@ -10,16 +10,25 @@ const TrainingResource = require('./models/TrainingResource');
 
 // Import Routes
 const trainingResourceRoutes = require('./routes/trainingResourceRoutes');
+const clientProgressRoutes = require('./routes/clientProgressRoutes');
 
 // Loading environment, middleware, and port
 dotenv.config();
 const app = express();
 app.use(express.json());
-app.use(cors());
 const port = process.env.PORT || 5000;
+
+// Configure cors
+const corsOptions = {
+  origin: 'http://localhost:3000',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
+  allowedHeaders: ['Content-Type'],
+};
+app.use(cors(corsOptions));
 
 // Using routes
 app.use('/api/training-resources', trainingResourceRoutes);
+app.use('/api/client-progress', clientProgressRoutes);
 
 //-------------Connect to MongoDB
 mongoose.connect(process.env.MONGODB_URI, {
@@ -29,16 +38,20 @@ mongoose.connect(process.env.MONGODB_URI, {
   .then(() => console.log('Connected to MongoDB'))
   .catch(err => console.error('Error connecting to MongoDB:', err));
 
-//------------------API endpoints - GET
-app.get('/api/client-progress/:userId', async (req, res) => {
+//------------------API endpoints - GET------------------
+app.get('/api/client-progress/', async (req, res) => {
   try {
-    const userId = req.params.userId;
-    const progress = await ClientProgress.findOne({ userId });
+    const progress = await ClientProgress.find().select('userId totalPointsEarned');
+    res.json(progress);
+  } catch (error) {
+    console.error('Error fetching client progress:', error);
+    res.status(500).send('Error fetching client progress');
+  }
+});
 
-    if (!progress) {
-      return res.status(404).json({ message: 'User progress not found' });
-    }
-
+app.get('/api/client-progress/points-only/', async (req, res) => {
+  try {
+    const progress = await ClientProgress.find().select('totalPointsEarned');
     res.json(progress);
   } catch (error) {
     console.error('Error fetching client progress:', error);
@@ -49,7 +62,7 @@ app.get('/api/client-progress/:userId', async (req, res) => {
 app.get('/api/events/:title', async (req, res) => {
   try {
     const { title } = req.params;
-    const event = await Event.findById(title);
+    const event = await Event.findOne({title});
 
     if (!event) {
       return res.status(404).json({ message: 'Event not found' });
@@ -62,10 +75,20 @@ app.get('/api/events/:title', async (req, res) => {
   }
 });
 
+app.get('/api/training-resources/', async (req, res) => {
+  try {
+    const resources = await TrainingResource.find().select('title _id');
+    res.json(resources);
+  } catch (error) {
+    console.error('Error fetching training resources:', error);
+    res.status(500).json({ message: 'Error fetching training resources', error });
+  }
+});
+
 app.get('/api/training-resources/:title', async (req, res) => {
   try {
     const { title } = req.params;
-    const resource = await TrainingResource.findById(title);
+    const resource = await TrainingResource.findOne({title});
 
     if (!resource) {
       return res.status(404).json({ message: 'Training resource not found' });
@@ -78,15 +101,35 @@ app.get('/api/training-resources/:title', async (req, res) => {
   }
 });
 
-//----------------------API endpoints - PUT
-app.put('/api/training-resources/:title', async (req, res) => {
+//----------------------API endpoints - PUT, PATCH----------------------
+app.put('/api/client-progress/:clientId', async (req, res) => {
   try {
-    const { title } = req.params;
+    const { clientId } = req.params;
     const updatedData = req.body;
 
-    // update
-    const updatedResource = await TrainingResource.findOneAndUpdate(
-      { title }, 
+    const updatedUser = await ClientProgress.findByIdAndUpdate(
+      clientId,
+      updatedData,
+      { new: true }
+    );
+
+    if (!updatedUser) {
+      return res.status(404).json({ message: 'Client Progress not found' });
+    }
+    res.json(updatedUser);
+  } catch (error) {
+    console.error('Error updating client progress:', error);
+    res.status(500).json({ message: 'Error updating client progress', error });
+  }
+});
+
+app.patch('/api/training-resources/:resourceId', async (req, res) => {
+  try {
+    const { resourceId } = req.params;
+    const updatedData = req.body;
+
+    const updatedResource = await TrainingResource.findByIdAndUpdate(
+      resourceId, 
       updatedData,
       { new: true }
     );
@@ -102,30 +145,41 @@ app.put('/api/training-resources/:title', async (req, res) => {
   }
 });
 
-app.put('/api/events/:title', async (req, res) => {
+app.put('/api/training-resources/:resourceId', async (req, res) => {
   try {
-    const { title } = req.params; 
-    const updatedData = req.body; 
+    const { resourceId } = req.params;
+    const { title } = req.body;
+    const updatedData = { title };
 
-    if (!updatedData || Object.keys(updatedData).length === 0) {
-      return res.status(400).json({ message: 'No update data provided' });
-    }
-
-    const updatedResource = await Event.findOneAndUpdate(
-      { title },            
-      { $set: updatedData }, 
-      { new: true, runValidators: true } 
+    const updatedResource = await TrainingResource.findByIdAndUpdate(
+      resourceId,
+      updatedData,
+      { new: true, runValidators: true }
     );
 
     if (!updatedResource) {
       return res.status(404).json({ message: 'Training resource not found' });
     }
-
     res.json(updatedResource);
-
   } catch (error) {
     console.error('Error updating training resource:', error);
-    res.status(500).json({ message: 'Error updating training resource' });
+    res.status(500).json({ message: 'Error updating training resource', error });
+  }
+});
+
+//------------------API endpoints - DELETE
+app.delete('/api/training-resources/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const deletedResource = await TrainingResource.findByIdAndDelete(id);
+
+    if (!deletedResource) {
+      return res.status(404).json({ message: 'Training resource not found' });
+    }
+    res.json({ message: 'Training resource deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting training resource:', error);
+    res.status(500).json({ message: 'Error deleting training resource', error });
   }
 });
 

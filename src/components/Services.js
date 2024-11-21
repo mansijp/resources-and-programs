@@ -1,7 +1,68 @@
-import React from 'react';
 import img from '../images/web.svg'; 
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+import Notiflix from 'notiflix';
+import React, { useState, useEffect } from 'react';
+
 const Services = () => {
+
+    const [userPoints, setUserPoints] = useState();
+
+
+    useEffect(() => {
+        const fetchPoints = async () => {
+            try {
+                const response = await axios.get('http://localhost:5000/api/client-progress/points-only/');
+                if (response.data && response.data.length > 0) {
+                    setUserPoints(response.data[0]);
+                } else {
+                    throw new Error('Client progress data is missing or malformed');
+                }
+            } catch (error) {
+                console.error("Error fetching client progress:", error);
+                Notiflix.Report.failure(
+                    'Error',
+                    `There was an error fetching the client progress. Please try again. ${error.message}`,
+                    'Okay'
+                );
+            }
+        };
+    
+        fetchPoints();
+    }, []);
+
+    const handleUpdatePoints = async (e) => {
+        e.preventDefault();
+        try {
+            let updatedPoints = 0;
+            const response = await axios.put(`http://localhost:5000/api/client-progress/${userPoints._id}`, {
+                totalPointsEarned: updatedPoints  
+            });
+            window.location.reload();
+
+            // success
+            if (response.data && response.data.totalPointsEarned) {
+                setUserPoints((prevUserPoints) => ({
+                    ...prevUserPoints,
+                    totalPointsEarned: response.data.totalPointsEarned,
+                }));
+                
+                Notiflix.Report.success(
+                    'Success',
+                    `Points updated successfully! Total points: ${response.data.totalPointsEarned}`,
+                    'Okay'
+                );
+            }
+        // notflix error notification on full screen
+        } catch (error) {
+            console.error("Error updating points", error);
+            Notiflix.Report.failure(
+                'Error',
+                'There was an error updating the points. Please try again.',
+                'Okay'
+            );
+        }
+    };
 
     return (
         <div id="services" className="bg-gray-100 py-12" >
@@ -59,6 +120,14 @@ const Services = () => {
                                     </Link>
                                 </div>
                             </div>            
+                        </div>
+                        <div className="flex justify-center mt-6">
+                            <Link onClick={handleUpdatePoints} to="" className="text-white bg-blue-900 hover:bg-blue-800 inline-flex items-center justify-center w-auto px-6 py-2 text-lg shadow-xl rounded-2xl group">
+                                Erase Training Progress
+                                <svg className="w-4 h-4 ml-1 group-hover: translate-x-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd"></path>
+                                </svg>
+                            </Link>
                         </div>
                     </div>
             </section>
