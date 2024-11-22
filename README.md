@@ -66,7 +66,7 @@ To connect to MongoDB, paste the following commands in **another** terminal
 # BizPoints Module integration: MongoDB API Endpoints
 
 | Model | API Endpoint | Response | Purpose
-| ----------- | ---------------- | ---------------- | -------------- |
+| ----------- | ---------------- | ------------ | -------------- |
 | TrainingResource.js | GET /api/training-resources | [{"_id":"123","title":"Advanced Business"}] | Get list of all training resources from DB including their unique ID and title |
 | TrainingResource.js | GET /api/training-resources/:title | ```{"_id":"123","title":"Advanced Business","type":"webinar","description":"A training resource for clients","pointsAwarded":25,"categories":["analytics","logical"],"isActive":true,"createdAt":"2024-11-20T17:07:13.047Z","updatedAt":"2024-11-20T17:07:13.047Z","__v":0}``` | Returns all information for a singular training resource |
 | TrainingResource.js | PATCH /api/training-resources/:id | ```{"_id":"123","title":"Advanced Business Analytics","type":"webinar","description":"A training resource for clients","pointsAwarded":25,"categories":["analytics","logical"],"isActive":true,"createdAt":"2024-11-20T17:07:13.047Z","updatedAt":"2024-11-20T17:07:13.047Z","__v":0}``` | Updates the title of a specific training resource |
