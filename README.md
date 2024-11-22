@@ -71,4 +71,4 @@ To connect to MongoDB, paste the following commands in **another** terminal
 | TrainingResource.js | DELETE /api/training-resources/:id | ```{message: "Resource successfully deleted."}``` | Deletes the entire resource using its ID |
 | ClientProgress.js | GET /api/client-progress | ```[{"_id":"456xyz","userId":"test_user_cps714","totalPointsEarned":25}]``` | Returns all the user data |
 | ClientProgress.js | GET /api/client-progress/points-only | ```[{"totalPointsEarned":25}]``` | Returns only the points for each user |
-| ClientProgress.js | PUT /api/client-progress/:id | ```{"_id":"456xyz","userId":"test_user_cps714","totalPointsEarned":50}``` | Updates the user's total points earned using their DB ID
+| ClientProgress.js | PUT /api/client-progress/:id | ```{"_id":"456xyz","userId":"test_user_cps714","totalPointsEarned":50}``` | Updates the user's total points earned using their DB ID |
