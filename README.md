@@ -19,6 +19,7 @@ This is the module 6 of the project, BizPoints: Loyalty Program Web Portal for A
 | Rikhina Sarker | Backend Database Developer |
 | Moaz Hameed | Cloud Database Developer |
 -----------------------------------------
+-----------------------------------------
 
 # Setting up this ReactJS App with a NodeJS Server Connecting to Our MongoDB
 
@@ -28,12 +29,13 @@ This guide will walk you through handling the cloning and running processes to s
 
 Before you begin, make sure you have the following technologies installed:
 
-- [Node.js and npm](https://nodejs.org/) (Node Package Manager) --> latest vsersions
+- [Node.js and npm](https://nodejs.org/) (Node Package Manager) --> latest versions
 - [MongoDB](https://www.mongodb.com/try/download/community) (locally or use a cloud service like MongoDB Atlas)
 
 You can check if Node.js and npm are already installed by running the following commands in your terminal:
 
 > node -v
+
 > npm -v
 
 1. Open your preferred IDE - VSCode Recommended
@@ -58,13 +60,13 @@ To connect to MongoDB, paste the following commands in **another** terminal
 > node server.js
 
 ## View the Full BizPoints Resources Portal User Guide Here
-[BizPoints User Guide](https://drive.google.com/file/d/1uD_1DUqpHs5_MR_ROz5S2aI1wr-0kjw5/view?usp=sharing)
+[BizPoints User Guide](public/User_Guide_for_BizPoints_Resources_Portal.pdf)
 
 ----------------------------------------
 # BizPoints Module integration: MongoDB API Endpoints
 
 | Model | API Endpoint | Response | Purpose
-| ----------- | -------------------- | ------------------------ | ------------------- |
+| ----------- | ---------------- | ------------------- | -------------- |
 | TrainingResource.js | GET /api/training-resources | [{"_id":"123","title":"Advanced Business"}] | Get list of all training resources from DB including their unique ID and title |
 | TrainingResource.js | GET /api/training-resources/:title | ```{"_id":"123","title":"Advanced Business","type":"webinar","description":"A training resource for clients","pointsAwarded":25,"categories":["analytics","logical"],"isActive":true,"createdAt":"2024-11-20T17:07:13.047Z","updatedAt":"2024-11-20T17:07:13.047Z","__v":0}``` | Returns all information for a singular training resource |
 | TrainingResource.js | PATCH /api/training-resources/:id | ```{"_id":"123","title":"Advanced Business Analytics","type":"webinar","description":"A training resource for clients","pointsAwarded":25,"categories":["analytics","logical"],"isActive":true,"createdAt":"2024-11-20T17:07:13.047Z","updatedAt":"2024-11-20T17:07:13.047Z","__v":0}``` | Updates the title of a specific training resource |
