@@ -36,29 +36,30 @@ You can check if Node.js and npm are already installed by running the following 
 
 > npm -v
 
-1. Open your preferred IDE - VSCode Recommended
+**1. Open your preferred IDE - VSCode Recommended**
 
 https://code.visualstudio.com/download
 
-2. Install dependencies
+**2. Install dependencies**
 
 Make sure you are in the **/src** folder and paste the command in your terminal
 > npm install
 
-3. Launch the client-side application
+**3. Launch the client-side application**
 
 Make sure you are in the **/src** folder and paste the command in your terminal
 > npm start
 
-4. Launch the server-side to Connect to MongoDB
+**4. Launch the server-side to Connect to MongoDB**
 
 To connect to MongoDB, paste the following commands in **another** terminal
+    
 > cd server
 
 > node server.js
 
 ## View the Full BizPoints Resources Portal User Guide Here
-[BizPoints User Guide](public/User_Guide_for_BizPoints_Resources_Portal.pdf)
+**[BizPoints User Guide](public/User_Guide_for_BizPoints_Resources_Portal.pdf)**
 
 ----------------------------------------
 # BizPoints Module integration: MongoDB API Endpoints
