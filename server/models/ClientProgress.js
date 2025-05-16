@@ -41,9 +41,10 @@ const ClientProgressSchema = new mongoose.Schema({
     currentLevel: {
       type: String
     },
-    completedModules: [{
-      type: String
-    }]
+    completedModules: {
+      type: [String],
+      default: []
+    }
   },
   lastActivityDate: {
     type: Date,

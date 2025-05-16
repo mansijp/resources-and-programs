@@ -26,7 +26,7 @@ const Workshops = () => {
             </a>
 
             <a
-              href="https://www.torontomuic.ca/programs/business-management/"
+              href="https://www.torontomu.ca/zone-learning/startup-school/content-library/"
               className="block bg-white hover:bg-green-50 border border-green-200 rounded-xl p-5 transition-all duration-300 hover:shadow-lg"
               target="_blank"
               rel="noreferrer"

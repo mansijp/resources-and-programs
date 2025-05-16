@@ -65,11 +65,11 @@ router.put('/:id/complete-module', async (req, res) => {
 
   try {
     const progress = await ClientProgress.findById(id);
+    console.log(progress);
     if (!progress) {
       return res.status(404).json({ message: 'Client progress not found.' });
     }
 
-    // Check if already completed
     if (progress.learningPath.completedModules.includes(moduleName)) {
       return res.status(409).json({ message: 'Module already completed.' });
     }
@@ -79,6 +79,9 @@ router.put('/:id/complete-module', async (req, res) => {
     if (currentLevel) {
       progress.learningPath.currentLevel = currentLevel;
     }
+
+    console.log(progress.learningPath);
+    console.log(progress.learningPath.completedModules);
 
     await progress.save();
 

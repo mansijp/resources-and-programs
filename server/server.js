@@ -1,4 +1,4 @@
-const express = require('express');
+const express =  require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const dotenv = require('dotenv');
@@ -103,6 +103,30 @@ app.get('/api/training-resources/:title', async (req, res) => {
 
 //----------------------API endpoints - PUT, PATCH----------------------
 app.put("/api/client-progress/:clientId", async (req, res) => {
+  try {
+    const { clientId } = req.params;
+    const { totalPointsEarned } = req.body;
+
+    const updatedData = {
+      totalPointsEarned
+    };
+    const updatedUser = await ClientProgress.findByIdAndUpdate(
+      clientId,
+      { $set: updatedData },
+      { new: true, runValidators: true }
+    );
+
+    if (!updatedUser) {
+      return res.status(404).json({ message: "Client Progress not found" });
+    }
+    res.json(updatedUser);
+  } catch (error) {
+    console.error("Error updating client progress:", error);
+    res.status(500).json({ message: "Error updating client progress", error });
+  }
+});
+
+app.put("/api/client-progress/:clientId/reset", async (req, res) => {
   try {
     const { clientId } = req.params;
     const { totalPointsEarned } = req.body;

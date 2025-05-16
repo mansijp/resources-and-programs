@@ -36,7 +36,7 @@ const Services = () => {
         e.preventDefault();
         try {
             let updatedPoints = 0;
-            const response = await axios.put(`http://localhost:5000/api/client-progress/${userPoints._id}`, {
+            const response = await axios.put(`http://localhost:5000/api/client-progress/${userPoints._id}/reset`, {
                 totalPointsEarned: updatedPoints   
             });
             window.location.reload();
