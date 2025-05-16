@@ -1,6 +1,8 @@
 # Educational-Resources-Client-Training-Programs
 
 This is the module 6 of the project, BizPoints: Loyalty Program Web Portal for AlphaBiz Solutions.
+> 🛠️ **Note:**
+> This is a restructured and fully original version of a school project developed between Oct 2024 – Dec 2024. The previous repository contained scaffolded code and has been deprecated in favor of this clean version.
 
 ## [Built With] Technologies and Frameworks
 
@@ -70,8 +72,3 @@ To connect to MongoDB, paste the following commands in **another** terminal
 | ClientProgress.js | GET /api/client-progress | ```[{"_id":"456xyz","userId":"test_user_cps714","totalPointsEarned":25}]``` | Returns all the user data |
 | ClientProgress.js | GET /api/client-progress/points-only | ```[{"totalPointsEarned":25}]``` | Returns only the points for each user |
 | ClientProgress.js | PUT /api/client-progress/:id | ```{"_id":"456xyz","userId":"test_user_cps714","totalPointsEarned":50}``` | Updates the user's total points earned using their DB ID |
-
-----------------------------------------
-
-> 🛠️ **Note:**
-> This is a restructured and fully original version of a school project developed between Oct 2024 – Dec 2024. The previous repository contained scaffolded code and has been deprecated in favor of this clean version.
