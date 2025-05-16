@@ -110,6 +110,7 @@ app.put("/api/client-progress/:clientId", async (req, res) => {
     const updatedData = {
       totalPointsEarned,
       "learningPath.currentLevel": "Rookie",
+      "learningPath.completedModules": []
     };
     const updatedUser = await ClientProgress.findByIdAndUpdate(
       clientId,
