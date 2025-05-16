@@ -183,7 +183,7 @@ const Leadership = () => {
   return (
     <>
       <NavBar />
-      <section className="w-full bg-gray-100 px-6 min-h-[60vh] flex items-center justify-center">
+      <section className="w-full bg-gray-100 pt-40 pb-20 px-6 min-h-[60vh]">
         <div className="max-w-5xl mx-auto" data-aos="zoom-in">
           {userPoints?.learningPath?.completedModules?.includes(
             "leadership"
