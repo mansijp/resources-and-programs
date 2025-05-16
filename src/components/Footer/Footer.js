@@ -27,7 +27,7 @@ const Footer = () => {
             <ul className="space-y-3 text-gray-700 font-medium">
               <li>
                 <HashLink
-                  to="#about"
+                  to="/#about"
                   className="hover:text-green-900 transition ease-in-out duration-200"
                 >
                   Events
@@ -35,7 +35,7 @@ const Footer = () => {
               </li>
               <li>
                 <HashLink
-                  to="#services"
+                  to="/#services"
                   className="hover:text-green-900 transition ease-in-out duration-200"
                 >
                   Learning Activities
@@ -43,7 +43,7 @@ const Footer = () => {
               </li>
               <li>
                 <HashLink
-                  to="#portfolio"
+                  to="/#portfolio"
                   className="hover:text-green-900 transition ease-in-out duration-200"
                 >
                   Training Resources
